@@ -72,9 +72,21 @@ const AddProduct = ({account, central}) => {
     const addProducts = async () => {
         try{
             const list = JSON.parse("[" + productId + "]");
-            if(account && companyContractAddress && list){
+            const manufacturers_list=JSON.parse("[" + manufactureId + "]");
+          
+            // const prd_name_list = JSON.parse("[" + productName.split(",") + "]");
+            // const prd_brand_list = JSON.parse("[" + productBrand.split(",") + "]");
+            
+            const prd_name_list =  productName.split(",")
+            const prd_brand_list =  productBrand.split(",")
+            debugger
+            console.log(list);
+            console.log(prd_name_list);
+            
+
+            if(account && companyContractAddress && list  && manufacturers_list  && prd_name_list && prd_brand_list ){
                 setUpdateStatus("Validate the transaction through your wallet");
-                let transaction = await central.addproduct(account, companyContractAddress, list);
+                let transaction = await central.addproduct(account, companyContractAddress, list,manufacturers_list,prd_name_list,prd_brand_list);
                 setLoading(true);
                 await transaction.wait();
                 setUpdateStatus("Products Added");

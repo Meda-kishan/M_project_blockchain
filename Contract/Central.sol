@@ -28,9 +28,21 @@ contract Central {
     function addproduct(
         address _ownerAddress,
         address _contractAddress,
-        uint256[] memory _products
+        uint256[] memory _products,
+        // string[] memory manufacturers_id_list,
+        // string[] memory prd_name_list,
+        // string[] memory prd_brand_list
+
+        uint256[] memory manufacturers_id_list,
+        uint256[] memory prd_name_list,
+        uint256[] memory prd_brand_list
+
     ) public returns (string memory) {
-        return Company(_contractAddress).addProducts(_ownerAddress, _products);
+        return Company(_contractAddress).addProducts(_ownerAddress, 
+                                                    _products,
+                                                    manufacturers_id_list,
+                                                    prd_name_list,
+                                                    prd_brand_list);
     }
 
     function checkProduct(address _contractAddress, uint256 _productHashCode)
