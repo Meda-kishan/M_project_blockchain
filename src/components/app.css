@@ -561,10 +561,20 @@ input[type= submit]
 
 .details_popup-content
 {
-
+ 
 }
 
 h4
 {
   color: #000;
 }
+
+.product_data
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+

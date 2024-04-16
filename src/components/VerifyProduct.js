@@ -96,25 +96,32 @@ const VerifyProduct = ({ provider, central }) => {
 
     const handleChange = async (e) => {
         debugger
-        const file = e.target.files[0];
-        console.log("file",file)
-        debugger
-        setFile(file);
-        const result = await QrScanner.scanImage(file);
-        console.log(result);
-        debugger
-        if(result.length!==42)
+        try
         {
-            setData("Fake ! Didn't match with any smart contract")
-            
-            setShowPopup(true);
-           
+            const file = e.target.files[0];
+            console.log("file",file)
             debugger
+            setFile(file);
+            const result = await QrScanner.scanImage(file);
+            console.log(result);
+            debugger
+            if(result.length!==42)
+            {
+                setData("Fake ! Didn't match with any smart contract")
+                
+                setShowPopup(true);
+            
+                debugger
+            }
+            else
+            {
+                setData(result);
+            }
+
         }
-        else
+        catch
         {
-            setData(result);
-            // setShowPopup2(true);
+            setShowPopup(true);
         }
     };
 
@@ -174,9 +181,7 @@ const VerifyProduct = ({ provider, central }) => {
                                 <span>Close</span>
                             </button>
                             </div>
-
-
-                            {/* You can add any content you want in the popup */}
+                            
                         </div>
                     </div>
                 )}
@@ -185,10 +190,16 @@ const VerifyProduct = ({ provider, central }) => {
                     <div className='details_popup' >
                         <div className='details_popup-content'>
                             <h3 color='#000'>   Product details</h3>
-                            <img height="100px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSD1_Nv2HJveXuKKFJ6xAN-TE8aVY65TBT_n8_agaFOA&s" alt='success'/>
-                            <h4 color='#000'> Manufacturer ID: {data[0]}</h4>
-                            <h4 color='#000'>Product Name: {data[1]}</h4>
-                            <h4 color='#000'> Product Brand: {data[2]}</h4>          
+
+                            <div className='counter_image' >
+                                <img height="100px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSD1_Nv2HJveXuKKFJ6xAN-TE8aVY65TBT_n8_agaFOA&s" alt='success'/>
+                            </div>
+                            <div className="product_data" >
+
+                                <h4 color='#000'> Manufacturer ID: {data[0]}</h4>
+                                <h4 color='#000'>Product Name: {data[1]}</h4>
+                                <h4 color='#000'> Product Brand: {data[2]}</h4> 
+                            </div>         
                             <div className='close-button-2'>
                             <button className='close-button' onClick={closePopup}>
                                 <span>Close</span>
