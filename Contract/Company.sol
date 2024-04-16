@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 contract Company {
     uint256[] Products;
-    uint256[] manufacturers_id;
+    // uint256[] manufacturers_id;
     // string[] prd_names;
     // string[] prd_brands;
     uint256[] prd_names;

@@ -73,9 +73,7 @@ const AddProduct = ({account, central}) => {
         try{
             const list = JSON.parse("[" + productId + "]");
             const manufacturers_list=JSON.parse("[" + manufactureId + "]");
-          
-            // const prd_name_list = JSON.parse("[" + productName.split(",") + "]");
-            // const prd_brand_list = JSON.parse("[" + productBrand.split(",") + "]");
+        
             
             const prd_name_list =  productName.split(",")
             const prd_brand_list =  productBrand.split(",")

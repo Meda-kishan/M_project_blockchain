@@ -29,13 +29,11 @@ contract Central {
         address _ownerAddress,
         address _contractAddress,
         uint256[] memory _products,
-        // string[] memory manufacturers_id_list,
-        // string[] memory prd_name_list,
-        // string[] memory prd_brand_list
+        string[] memory manufacturers_id_list,
+        string[] memory prd_name_list,
+        string[] memory prd_brand_list
 
-        uint256[] memory manufacturers_id_list,
-        uint256[] memory prd_name_list,
-        uint256[] memory prd_brand_list
+
 
     ) public returns (string memory) {
         return Company(_contractAddress).addProducts(_ownerAddress, 

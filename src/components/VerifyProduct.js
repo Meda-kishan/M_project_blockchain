@@ -18,7 +18,7 @@ const VerifyProduct = ({ provider, central }) => {
     const [productStatus, setProductStatus] = useState(null);
 
 
-    // const [showPopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
 
 
     //const [scannedData, setScannedData] = useState(null);
@@ -46,7 +46,10 @@ const VerifyProduct = ({ provider, central }) => {
             debugger
             const result = await central.checkProduct(companyContractAddress, parseInt(productId));
             console.log("result",result)
+            debugger
             setProductStatus(result);
+            if(result==="Counterfeit")
+                setShowPopup(true)
         }catch(error){
             console.log(error);
             showErrorMessage(error);
@@ -57,6 +60,22 @@ const VerifyProduct = ({ provider, central }) => {
     const [file, setFile] = useState(null);
     const [data, setData] = useState(null);
     const fileRef =useRef();
+
+
+    const resetForm = () => {
+        setCompanyContractAddress('');
+        setProductId('');
+        setFile(null);
+        setData(null);
+        setProductStatus(null);
+        fileRef.current.value = null;
+    };
+    
+    const closePopup = () => {
+        setShowPopup(false); // Close the popup
+        resetForm();
+    };
+
 
     const handleClick = () => {
         fileRef.current.click();
@@ -69,7 +88,20 @@ const VerifyProduct = ({ provider, central }) => {
         debugger
         setFile(file);
         const result = await QrScanner.scanImage(file);
-        setData(result);
+        console.log(result);
+        debugger
+        if(result.length!==42)
+        {
+            setData("Fake ! Didn't match with any smart contract")
+            
+            setShowPopup(true);
+           
+            debugger
+        }
+        else
+        {
+            setData(result);
+        }
     };
 
     // const showCounterfeitPopup = () => {
@@ -107,12 +139,38 @@ const VerifyProduct = ({ provider, central }) => {
                                 className='d-none' />
                             <div className='mt-4'>
                                 {file && <img src={URL.createObjectURL(file)} alt="QR Code" />}
-                                {data && <p className="small mt-5">data: {data}</p>}
+                                {/* {data && <p className="small mt-5">data: {data}</p>} */}
+                                {data && <p className="small mt-5">Contact address : {data}</p>}
                             </div>
                         </div>
                     </div>
+
+                    {showPopup && (
+                    <div className="popup">
+                        <div className="popup-content">
+                            <h4>counterfeit</h4>
+                            <div className='counter_image'>
+                            <img height="100px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHhW3tPzJxZIElzv8BJjo3a3n-yqZfHwtR23IrM9UiHg&s" alt="Counterfeit QR Code" />
+                            </div>
+                            <p className='Para_text'>QR Code Didn't match with any smart contract Addresss and details!</p>
+                            
+                           
+                            <div className='close-button-2'>
+                            <button className='close-button' onClick={closePopup}>
+                                <span>Close</span>
+                            </button>
+                            </div>
+
+
+                            {/* You can add any content you want in the popup */}
+                        </div>
+                    </div>
+                )}
                     {/* {scannedData ? <p>Scanned data: {scannedData}</p> : <QRScanner onScan={handleScan} />} */}
                 </div>
+
+                {showPopup && <div className="overlay"></div>}
+
 
                 <button className='button__toggle form__button' onClick={checkProduct}>Verify</button>
                 {productStatus && <p>Result: {productStatus}</p>}
