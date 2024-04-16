@@ -72,9 +72,13 @@ const AddProduct = ({account, central}) => {
     const addProducts = async () => {
         try{
             const list = JSON.parse("[" + productId + "]");
-            const manufacturers_list=JSON.parse("[" + manufactureId + "]");
-        
+            // const manufacturers_list=JSON.parse("[" + manufactureId + "]");
             
+
+        
+            const manufacturers_list=manufactureId.split(",");
+            console.log(manufacturers_list);
+            debugger
             const prd_name_list =  productName.split(",")
             const prd_brand_list =  productBrand.split(",")
             debugger

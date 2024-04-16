@@ -19,8 +19,9 @@ const VerifyProduct = ({ provider, central }) => {
 
 
     const [showPopup, setShowPopup] = useState(false);
+    const [showpopup2,setShowPopup2]= useState(false);
 
-
+    // const details=["Manufacturer ID","Product  Name","Producy Brand"];
     //const [scannedData, setScannedData] = useState(null);
 
     // const handleScan = (data) => {
@@ -48,8 +49,19 @@ const VerifyProduct = ({ provider, central }) => {
             console.log("result",result)
             debugger
             setProductStatus(result);
-            if(result==="Counterfeit")
+            // if(result==="Counterfeit")
+            //     setShowPopup(true)
+
+            if(result.length===1)
                 setShowPopup(true)
+            else
+            {
+
+                setShowPopup2(true);
+                setData(result);
+                console.log(result);
+                debugger
+        }
         }catch(error){
             console.log(error);
             showErrorMessage(error);
@@ -73,6 +85,7 @@ const VerifyProduct = ({ provider, central }) => {
     
     const closePopup = () => {
         setShowPopup(false); // Close the popup
+        setShowPopup2(false);
         resetForm();
     };
 
@@ -101,6 +114,7 @@ const VerifyProduct = ({ provider, central }) => {
         else
         {
             setData(result);
+            // setShowPopup2(true);
         }
     };
 
@@ -139,7 +153,7 @@ const VerifyProduct = ({ provider, central }) => {
                                 className='d-none' />
                             <div className='mt-4'>
                                 {file && <img src={URL.createObjectURL(file)} alt="QR Code" />}
-                                {/* {data && <p className="small mt-5">data: {data}</p>} */}
+                            
                                 {data && <p className="small mt-5">Contact address : {data}</p>}
                             </div>
                         </div>
@@ -165,6 +179,23 @@ const VerifyProduct = ({ provider, central }) => {
                             {/* You can add any content you want in the popup */}
                         </div>
                     </div>
+                )}
+
+                {showpopup2 && (
+                    <div className='details_popup' >
+                        <div className='details_popup-content'>
+                            <h3 color='#000'>   Product details</h3>
+                            <img height="100px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSD1_Nv2HJveXuKKFJ6xAN-TE8aVY65TBT_n8_agaFOA&s" alt='success'/>
+                            <h4 color='#000'> Manufacturer ID: {data[0]}</h4>
+                            <h4 color='#000'>Product Name: {data[1]}</h4>
+                            <h4 color='#000'> Product Brand: {data[2]}</h4>          
+                            <div className='close-button-2'>
+                            <button className='close-button' onClick={closePopup}>
+                                <span>Close</span>
+                            </button>
+                        </div>
+                            </div>
+                     </div>
                 )}
                     {/* {scannedData ? <p>Scanned data: {scannedData}</p> : <QRScanner onScan={handleScan} />} */}
                 </div>

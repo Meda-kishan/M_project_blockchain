@@ -15,6 +15,21 @@
 				"internalType": "uint256[]",
 				"name": "_products",
 				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "manufacturers_id_list",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "prd_name_list",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "prd_brand_list",
+				"type": "string[]"
 			}
 		],
 		"name": "addproduct",
@@ -51,9 +66,9 @@
 		"name": "checkProduct",
 		"outputs": [
 			{
-				"internalType": "string",
+				"internalType": "string[]",
 				"name": "",
-				"type": "string"
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",

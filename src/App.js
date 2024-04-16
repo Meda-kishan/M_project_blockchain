@@ -50,7 +50,7 @@ function App() {
 
       // const central = new ethers.Contract(config[network.chainId].central.address, CentralABI, signer);
 
-      const central = new ethers.Contract("0x5cD4a7eCc2840C861943D3E69FdeBA3Ed51b68E3", CentralABI, signer);
+      const central = new ethers.Contract("0xb8a1e33F164f3D7A608156c7Ef2901df6d7F7b8e", CentralABI, signer);
 
       setCentral(central);
     }catch(error){

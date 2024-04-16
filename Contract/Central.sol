@@ -46,7 +46,7 @@ contract Central {
     function checkProduct(address _contractAddress, uint256 _productHashCode)
         public
         view
-        returns (string memory)
+        returns (string[] memory)
     {
         return Company(_contractAddress).verifyProduct(_productHashCode);
     }

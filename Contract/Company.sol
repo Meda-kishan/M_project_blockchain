@@ -4,12 +4,6 @@ pragma solidity ^0.8.0;
 
 contract Company {
     uint256[] Products;
-    // uint256[] manufacturers_id;
-    // string[] prd_names;
-    // string[] prd_brands;
-    uint256[] prd_names;
-    uint256[] prd_brands;
-
 
     mapping(uint256 => bool) hashcodeToTrue;
 
@@ -26,9 +20,6 @@ contract Company {
         require(msg.sender == owner);
         _;
     }
-
-
-
 
 
     function addProducts(address _ownerAddress, 
@@ -64,19 +55,29 @@ contract Company {
         }
 
         return "Products added";
-        // return prd_details[1];
+
     }
 
 
     function verifyProduct(uint256 _hashcode)
         public
         view
-        returns (string memory)
+        returns (string[] memory)
     {
         if (hashcodeToTrue[_hashcode]) {
-            return "Authenticated";
+            return prd_id_to_prd_details[_hashcode];
         } else {
-            return "Counterfeit";
+            string[] memory counterfeitResult=new string[](1);
+            counterfeitResult[0]="Counterfeit";
+            return counterfeitResult;
         }
+    }
+
+    function get_data(uint product_id)
+    public
+    view
+    returns (string[] memory)
+    {
+        return prd_id_to_prd_details[product_id];
     }
 }
