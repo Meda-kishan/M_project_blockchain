@@ -20,17 +20,20 @@ const VerifyProduct = ({ provider, central }) => {
 
     const [showPopup, setShowPopup] = useState(false);
     const [showpopup2,setShowPopup2]= useState(false);
+    const [showpopup3,setshowpopup3]=useState(false);
+    const [details_popup,set_details_popup]=useState(false);
 
-    // const details=["Manufacturer ID","Product  Name","Producy Brand"];
-    //const [scannedData, setScannedData] = useState(null);
 
-    // const handleScan = (data) => {
-    //     setScannedData(data);
-    // }
+    //Fake product location
+    const [company, setcompany]=useState('');
+    const [product, setproduct]=useState('');
+    const [state, setstate]=useState('');
+    const [location, setlocation]=useState('');
 
     function showErrorMessage(error) {
         alert(`An error occurred while connecting to MetaMask: ${error.message}`);
     }
+
 
     const handleInput1Change = (e) => {
         setCompanyContractAddress(e.target.value);
@@ -40,6 +43,18 @@ const VerifyProduct = ({ provider, central }) => {
         setProductId(e.target.value);
       };
     
+      const handlecompany = (e) => {
+        setcompany(e.target.value);
+      }
+
+      const handleproduct = (e) => {
+        setproduct(e.target.value);
+      }
+
+      const handlelocation = (e) => {
+        setlocation(e.target.value);
+      }
+
 
 
     const checkProduct = async () => {
@@ -49,9 +64,7 @@ const VerifyProduct = ({ provider, central }) => {
             console.log("result",result)
             debugger
             setProductStatus(result);
-            // if(result==="Counterfeit")
-            //     setShowPopup(true)
-
+    
             if(result.length===1)
                 setShowPopup(true)
             else
@@ -82,12 +95,36 @@ const VerifyProduct = ({ provider, central }) => {
         setProductStatus(null);
         fileRef.current.value = null;
     };
+
+    const reset_details_form = () =>{
+        setcompany('');
+        setproduct('');
+        setstate('');
+        setlocation('');
+    }
     
     const closePopup = () => {
-        setShowPopup(false); // Close the popup
-        setShowPopup2(false);
+        setShowPopup(false);
+        // setshowpopup3(true);
+        set_details_popup(true)
         resetForm();
     };
+
+    const close_success_popup = () => {
+        setShowPopup2(false);
+        resetForm();
+    }
+
+    const close_conf_popup = () =>{
+        setshowpopup3(false);
+    }
+
+    const close_details_popup=() =>{
+        set_details_popup(false);
+        reset_details_form();
+    }
+
+ 
 
 
     const handleClick = () => {
@@ -124,13 +161,6 @@ const VerifyProduct = ({ provider, central }) => {
             setShowPopup(true);
         }
     };
-
-    // const showCounterfeitPopup = () => {
-    //     alert('The scanned product is counterfeit.');
-    // };
-
-
-    
 
     return (
         <div className='VerifyProduct'>
@@ -201,85 +231,126 @@ const VerifyProduct = ({ provider, central }) => {
                                 <h4 color='#000'> Product Brand: {data[2]}</h4> 
                             </div>         
                             <div className='close-button-2'>
-                            <button className='close-button' onClick={closePopup}>
+                            <button className='close-button' onClick={close_success_popup}>
                                 <span>Close</span>
                             </button>
                         </div>
                             </div>
                      </div>
                 )}
-                    {/* {scannedData ? <p>Scanned data: {scannedData}</p> : <QRScanner onScan={handleScan} />} */}
+
+                {/* Confirmation popup */}
+
+                {showpopup3 && (
+                    <div className='conf_popup'>
+                        <div className='conf_popup_content'>
+                           <div className='popup_heading'>
+                                <h3 className='popup_head'>Are you sure?</h3>
+                            </div>
+                            <div className='x_img'>
+                                <img height="100px" src="https://www.shutterstock.com/image-vector/exclamation-mark-flat-design-icon-260nw-538050328.jpg" alt='close'/>
+                            </div>
+                            <h4> Do you want to give the details of this Fake product ? </h4>
+                            <div className='yes_no_btns'>
+                                <button className='close-button' >
+                                    <span>Yes</span>
+                                </button>
+
+                                <button className='close-button' onClick={close_conf_popup}>
+                                     <span>No</span>
+                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {details_popup && (
+                    <div className='detail_popup'>
+                        <div className='detail_popup_content'>
+                           
+                                <h2 className='popup_head'>Please provide the product details </h2>
+                            
+
+                        <div className='input_feilds' >
+                            <label className='form__label_popup'>Company</label>
+                            <input type="text" color='black' className='form__input_popup' value={company} onChange={handlecompany} />
+
+                            <label className='form__label_popup'>Product </label>
+                            <input type="text" className='form__input_popup' value={product} onChange={handleproduct} />
+
+                            <label className='form__label_popup'>State</label>
+                    
+                            <select id='location'>
+                                <option value="" selected disabled>Select a state/UT</option>
+                                <option value="{state}">Andhra Pradesh (New)</option>
+                                <option value="{state}">Andhra Pradesh (Old)</option>
+                                <option value="{state}">Andaman & Nicobar Islands</option>
+                                <option value="{state}">Arunachal Pradesh</option>
+                                <option value="{state}">Assam</option>
+                                <option value="{state}">Bihar</option>
+                                <option value="{state}">Chandigarh</option>
+                                <option value="{state}">Chhattisgarh</option>
+                                <option value="{state}">Jammu & Kashmir</option>
+                                <option value="{state}">Jharkhand</option>
+                                <option value="{state}">Karnataka</option>
+                                <option value="{state}">Kerala</option>
+                                <option value="{state}">Meghalaya</option>
+                                <option value="{state}">Madhya Pradesh</option>
+                                <option value="{state}">Maharashtra</option>
+                                <option value="{state}">Manipur</option>
+                                <option value="{state}">Mizoram</option>
+                                <option value="{state}">Delhi</option>
+                                <option value="{state}">Daman & Diu</option>
+                                <option value="{state}">Dadra & Nagar Haveli</option>
+                                <option value="{state}">Lakshadweep</option>
+                                <option value="{state}">Goa</option>
+                                <option value="{state}">Gujarat</option>
+                                <option value="{state}">Haryana</option>
+                                <option value="{state}">Himachal Pradesh</option>
+                                <option value="{state}">Uttar Pradesh</option>
+                                <option value="{state}">Punjab</option>
+                                <option value="{state}">Tripura</option>
+                                <option value="{state}">Tamil Nadu</option>
+                                <option value="{state}">Puducherry</option>
+                                <option value="{state}">West Bengal</option>
+                                <option value="{state}">Uttarakhand</option>
+                                <option value="{state}">Sikkim</option>
+                                <option value="{state}">Orissa</option>
+                                <option value="{state}">Telengana</option>
+                                <option value="{state}">Rajasthan</option>
+                            </select>
+
+
+                            <label className='form__label_popup'>Location</label>
+                            <input type="text" className='form__input_popup' value={location} onChange={handlelocation} />
+                        </div>
+                            
+                            <div className='yes_no_btns'>
+                                <button className='close-button' >
+                                    <span>Submit</span>
+                                </button>
+
+                                <button className='close-button' onClick={close_details_popup}>
+                                     <span>Close</span>
+                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 </div>
 
                 {showPopup && <div className="overlay"></div>}
 
-
                 <button className='button__toggle form__button' onClick={checkProduct}>Verify</button>
                 {productStatus && <p>Result: {productStatus}</p>}
 
-
             </div>
-
-            
 
         </div>
     )
 }
 
-//Extra
-
-// class QrContainer extends Component {
-//     constructor(props){
-//         super(props)
-//         this.state = {
-//             result: 'Hold QR Code Steady and Clear to scan',
-//         }
-//         this.handleScan = this.handleScan.bind(this)
-//     }
-//     handleScan(result){
-//         this.setState({
-//             result: "data"
-//         })
-//     }
-//     handleError(err){
-//         console.error(err)
-//     }
-//     render(){
-//         const previewStyle = {
-//             height: 200,
-//             width: 200,
-//             display: 'flex',
-//             "justify-content": "center"
-//         }
-//         const camStyle = {
-//             display: 'flex',
-//             justifyContent: "center",
-//             marginTop: '-50px'
-//         }
-
-//         const textStyle = {
-//             fontSize: '30px',
-//             "text-align": 'center',
-//             marginTop: '-50px'
-//         }
-
-//         return(
-//             <React.Fragment>
-//                 <div style={camStyle}>
-//                     <QrReader
-//                         delay={100}
-//                         style={previewStyle}
-//                         onError={this.handleError}
-//                         onScan={this.handleScan}
-//                         />
-//                 </div>
-//                 <p style={textStyle}>
-//                     {this.state.result}
-//                 </p>
-//             </React.Fragment>
-//         )
-//     }
-// }
 
 export default VerifyProduct;
 

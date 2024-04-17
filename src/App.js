@@ -17,17 +17,14 @@ import Signup2 from './components/Signup2'
 import Manufacturer from './components/Manufacturer'
 
 
+
+
 // ABIs
 import CentralABI from './abis/Cental_ABI.json';
 
 // Config
-import config from './config.json';
+// import config from './config.json';
 import DeployContract from './components/DeployContract';
-
-
-// const Home = () => <div>Home Page</div>;
-// const About = () => <div>About Page</div>;
-// const Contact = () => <div>Contact Page</div>;
 
 
 function App() {
@@ -50,12 +47,12 @@ function App() {
 
       // const central = new ethers.Contract(config[network.chainId].central.address, CentralABI, signer);
 
-      const central = new ethers.Contract("0xb8a1e33F164f3D7A608156c7Ef2901df6d7F7b8e", CentralABI, signer);
+      const central = new ethers.Contract("0x8244f1780225a30804d6eC6959e9FA9EfB79B0f4", CentralABI, signer);
 
       setCentral(central);
     }catch(error){
       console.log(error);
-      // showErrorMessage(error);
+      showErrorMessage(error);
     }
 
   }
@@ -99,8 +96,12 @@ function App() {
 
         <Route path="/Manufacturer" element={<Manufacturer />} />
 
+        {/* <Route path="/Manufacturer" element={<QrScanner />} /> */}
+        
+
 
         <Route path="/GstValidate" element={<GstValidate />} />
+
 
 
       </Routes>

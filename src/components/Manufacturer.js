@@ -9,26 +9,12 @@ class Manufacturer extends Component {
     };
   }
 
-  componentDidMount() {
-    // Code to run after the component mounts
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    // Code to run after the component updates
-  }
-
-  componentWillUnmount() {
-    // Code to run before the component unmounts
-  }
-
-  handleClick = () => {
-    // Function to handle click events
-  }
 
   render() {
     return (
       <div>
-        {/* JSX code for rendering the component */}
+        
       </div>
     );
   }
