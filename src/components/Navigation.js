@@ -32,28 +32,27 @@ const Navigation = ({ account, setAccount }) => {
             <a href="/" className="nav__logo">Product Verifier</a>
             <div className='nav__menu'>
                 <ul className='nav__list grid'>
-                    <li className='nav__item'>
+                    {/* <li className='nav__item'>
                         <Link className='nav__link' to="/">Home</Link>
-                    </li>
+                    </li> */}
 
                     <li className='nav__item'>
                         <Link className='nav__link' to="Signin">Manufacturer</Link>
                     </li>
 
 
-                    <li className='nav__item'>
+                    {/* <li className='nav__item'>
                         <Link className='nav__link' to="GstValidate">signup</Link>
-                        {/* <Link className='nav__link' to="generate_qr">Generate QR</Link> */}
-                    </li>
+                    </li> */}
 
 
                     <li className='nav__item'>
-                        <Link className='nav__link' to="Signup2">signup2</Link>
+                        <Link className='nav__link' to="Signup2">Register</Link>
                     </li>
 
-                    <li className='nav__item'>
+                    {/* <li className='nav__item'>
                         <Link className='nav__link' to="createcontract">CreateContract</Link>
-                    </li>
+                    </li> */}
 
                     <li className='nav__item'>
                         <Link className='nav__link' to="getcontract">FetchAddress</Link>

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import './app.css';
+import axios from "axios";
 
 const AddProduct = ({account, central}) => {
 
@@ -19,6 +20,13 @@ const AddProduct = ({account, central}) => {
         alert(`An error occurred while connecting to MetaMask: ${error.message}`);
     }
 
+    const reset_form_add_products = () =>{
+        setCompanyContractAddress('');
+        setProductId('');
+        setManufactureId('');
+        setProductName('');
+        setProductBrand('');
+    }
     const handleInput1Change = (e) => {
         setCompanyContractAddress(e.target.value);
       };
@@ -91,7 +99,15 @@ const AddProduct = ({account, central}) => {
                 let transaction = await central.addproduct(account, companyContractAddress, list,manufacturers_list,prd_name_list,prd_brand_list);
                 setLoading(true);
                 await transaction.wait();
+                reset_form_add_products();
                 setUpdateStatus("Products Added");
+
+                axios.post('http://localhost:3001/addproduct',{companyContractAddress,productId,manufactureId,productName,productBrand})
+                .then(result =>{
+                    console.log(result) 
+                    alert("Product added to database.");
+                })
+                    .catch(err=>console.log(err))
                 setLoading(false);
             }else{
                 throw Error('Please check that you are connected to a wallet,and that you have provided all the fields');
